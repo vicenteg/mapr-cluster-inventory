@@ -1,7 +1,7 @@
 mapr-cluster-inventory
 ======================
 
-This is an ansible dynamic inventory script for [MapR Hadoop](http://www.mapr.com) clusters.
+This is an [Ansible](http://www.ansible.com) dynamic inventory script for [MapR Hadoop](http://www.mapr.com) clusters.
 
 The script connects to the MCS HTTP API and requests a node list. Using the configured service information, the script will automatically generate groups in the format ansible expects. You can use this script to dynamically create an inventory for your cluster at runtime. This enables things like this, against a cluster about which you have no prior knowledge:
 

@@ -11,9 +11,9 @@ except ImportError as error:
 	print >>sys.stderr, "The modules argparse and requests are required. Please install them and try again."
 	sys.exit(1)
 
-webserver_url = os.environ['MCS_NODE_LIST_URL']
-username = os.environ['MCS_USERNAME']
-password = os.environ['MCS_PASSWORD']
+webserver_url = os.environ.get('MCS_NODE_LIST_URL')
+username = os.environ.get('MCS_USERNAME')
+password = os.environ.get('MCS_PASSWORD')
 
 parser = argparse.ArgumentParser(
 	description='Obtain the ansible inventory from a running MapR cluster.')

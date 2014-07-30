@@ -17,6 +17,12 @@ Or perhaps you'd like to push your (previously generated) SSH public key to the 
 ansible all -i mapr-cluster-inventory -m authorized_key -a "user=root key='`cat ~/.ssh/id_rsa.pub`'"
 ```
 
+Note that ansible will, by default, attempt to connect to the remote machine using the same username as the currently logged in user. If you want to change that, invoke ansible with -u <user> as follows (taking the CLDB example from above):
+
+```
+ansible cldb -i mapr-cluster-inventory -m setup -u ubuntu
+```
+
 
 Setup
 =====

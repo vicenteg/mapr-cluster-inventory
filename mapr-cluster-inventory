@@ -28,6 +28,7 @@ parser.add_argument('--username', default='mapr', type=str,
 	help='MCS username')
 parser.add_argument('--password', default='mapr', type=str,
 	help='MCS password')
+parser.add_argument('--list', action='store_true')
 
 
 if not (webserver_url and username and password):

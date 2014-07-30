@@ -11,6 +11,13 @@ ansible cldb -i mapr-cluster-inventory -m setup
 
 If you'd like to inspect the system details of CLDB nodes.
 
+Or perhaps you'd like to push your (previously generated) SSH public key to the entire cluster:
+
+```
+ansible all -i mapr-cluster-inventory -m authorized_key -a "user=root key='`cat ~/.ssh/id_rsa.pub`'"
+```
+
+
 Setup
 =====
 

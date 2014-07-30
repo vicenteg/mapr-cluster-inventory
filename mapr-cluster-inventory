@@ -30,7 +30,7 @@ parser.add_argument('--password', default='mapr', type=str,
 	help='MCS password')
 
 
-if not webserver_url and username and password:
+if not (webserver_url and username and password):
 	args = parser.parse_args()
 	username = args.username
 	password = args.password

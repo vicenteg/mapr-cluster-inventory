@@ -41,7 +41,11 @@ if not (webserver_url and username and password):
 	webserver_url = "%s://%s:%d/rest/node/list" % (schema, args.webserver, args.port)
 
 params = { 'columns': 'hn,svc,csvc' }
-r = requests.get(webserver_url, auth=(username,password), verify=False, params=params)
+try:
+	r = requests.get(webserver_url, auth=(username,password), verify=False, params=params)
+except requests.exceptions.ConnectionError as error:
+	print >>sys.stderr, "Error connecting: %s" % error
+	
 response = r.json()
 data = response['data']
 

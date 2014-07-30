@@ -11,6 +11,17 @@ ansible cldb -i mapr-cluster-inventory -m setup
 
 If you'd like to inspect the system details of CLDB nodes.
 
+Setup
+=====
+
+The script requires two python modules, `requests` and `argparse` that may not be installed by default. 
+
+For RHEL and CentOS, it's recommended to install the EPEL repository and install these modules with yum:
+
+`yum -y install python-requests python-argparse`
+
+For Ubuntu, you will need to figure out how to get those packages, as I have so far only tested with CentOS.
+
 
 Usage
 =====

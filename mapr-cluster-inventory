@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
-import argparse
 import os
 import sys
 import json
 
 try:
 	import requests
+	import argparse
 except ImportError as error:
-	print >>sys.stderr, "Please install the requests module to use this script."
+	print >>sys.stderr, "The modules argparse and requests are required. Please install them and try again."
 	sys.exit(1)
 
 webserver_url = os.environ['MCS_NODE_LIST_URL']

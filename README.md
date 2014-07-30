@@ -36,3 +36,4 @@ export MCS_PASSWORD=<mcs_password>
 ansible all -i mapr-cluster-inventory -m ping
 ```
 
+Note: For a large cluster with hosts you trust, you may want to [disable host key checking](http://docs.ansible.com/intro_configuration.html#host-key-checking)  to avoid being prompted over and over if this is the first time you've connected to the hosts via SSH.

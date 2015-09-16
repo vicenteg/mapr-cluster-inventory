@@ -2,7 +2,9 @@
 
 import os
 import sys
+import types
 import json
+import getpass
 
 try:
 	import requests
@@ -11,10 +13,11 @@ except ImportError as error:
 	print >>sys.stderr, "The modules argparse and requests are required. Please install them and try again."
 	sys.exit(1)
 
-webserver_url = os.environ.get('MCS_NODE_LIST_URL')
+webserver = os.environ.get('MCS_HOST')
 username = os.environ.get('MCS_USERNAME')
 password = os.environ.get('MCS_PASSWORD')
-schema = "https"
+schema = os.environ.get('MCS_SCHEMA', 'https')
+port = os.environ.get('MCS_PORT', 8443)
 
 parser = argparse.ArgumentParser(
 	description='Obtain the ansible inventory from a running MapR cluster.')
@@ -29,16 +32,22 @@ parser.add_argument('--username', default='mapr', type=str,
 parser.add_argument('--password', default='mapr', type=str,
 	help='MCS password')
 parser.add_argument('--list', action='store_true')
+parser.add_argument('--prompt', default=False, action='store_true',
+	help='Prompt for MCS password. If this is set, passwords set via environment or command line are overridden.')
 
+args = parser.parse_args()
 
-if not (webserver_url and username and password):
-	args = parser.parse_args()
+if not (webserver or username or password):
 	username = args.username
 	password = args.password
+	webserver = args.webserver
 
 	if args.no_ssl:
 		schema = "http"
-	webserver_url = "%s://%s:%d/rest/node/list" % (schema, args.webserver, args.port)
+
+if args.prompt:
+	password = getpass.getpass("MCS Password for %s: " % username)
+webserver_url = "%s://%s:%d/rest/node/list" % (schema, webserver, port)
 
 params = { 'columns': 'hn,svc,csvc' }
 try:
@@ -67,3 +76,4 @@ for node in data:
 		inventory[service]['hosts'].append(node['ip'])	
 
 print json.dumps(inventory)
+
